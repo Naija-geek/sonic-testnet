@@ -1,9 +1,9 @@
 // scripts/deploy.js
 async function main() {
-    const Token = await ethers.getContractFactory("Else");
+    const Token = await ethers.getContractFactory("Token");
   
-    const name = "else";
-    const symbol = "ELS";
+    const name = "testToken";
+    const symbol = "TTK";
     const initialSupply = ethers.utils.parseUnits("1000000", 18); // 1,000,000 tokens with 18 decimals
   
     // Deploy the contract
