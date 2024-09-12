@@ -65,8 +65,8 @@ cat <<EOF > scripts/deploy.js
 async function main() {
     const Token = await ethers.getContractFactory("Else");
   
-    const name = "else";
-    const symbol = "ELS";
+    const name = "testToken";
+    const symbol = "TTK";
     const initialSupply = ethers.utils.parseUnits("1000000", 18); // 1,000,000 tokens with 18 decimals
   
     // Deploy the contract
@@ -98,26 +98,35 @@ module.exports = {
   solidity: {
     compilers: [
       {
-        version: "0.8.18", // For newer contracts
+        version: "0.8.18", // First compiler version (targeting London EVM)
+        settings: {
+          evmVersion: "london", // Set EVM version to London
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
       },
       {
-        version: "0.8.20", // If some contracts require an older version
-      }
-    ],
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 200,
+        version: "0.8.20", // Third compiler version
+        settings: {
+          evmVersion: "london", // Target London EVM for this version too
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
       },
-    },
+    ],
   },
   networks: {
     sonicTestnet: {
-      url: "https://rpc.testnet.soniclabs.com/",
+      url: process.env.SONIC_RPC_URL,
       accounts: [\`0x\${process.env.PRIVATE_KEY}\`],
     },
   },
 };
+
 EOF
 
 read -p "Enter your EVM wallet private key (without 0x): " WALLET_PRIVATE_KEY
