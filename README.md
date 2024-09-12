@@ -2,7 +2,7 @@
 
 This project demonstrates a basic contracct deployment on sonic testnet.
 
-Installation on Wwindows 
+Installation on windows 
 
 ```shell
 npm init -y
